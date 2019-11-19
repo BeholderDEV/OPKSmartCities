@@ -1,0 +1,43 @@
+{
+  "name": "opksmartcities-server",
+  "version": "1.0.0",
+  "description": "A new way to spy your UI, withut a lot of requests",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "standard",
+    "dev": "nodemon server.js"
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/"
+    ],
+    "globals": [
+      "alert",
+      "jQuery",
+      "$"
+    ]
+  },
+  "author": "BeholderDEV",
+  "now": {
+    "name": "OPK SmartCities",
+    "alias": "opksmartcities.now.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/npm.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.0.6",
+    "opn": "^5.3.0",
+    "request-ip": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.3"
+  }
+}
