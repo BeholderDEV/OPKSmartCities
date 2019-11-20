@@ -23,37 +23,13 @@ exports.getDistinctSchemaAtributesByProperty = async (Schema, propertyName) => {
 
 exports.getUserStatistics = async (Schema) => {
   let result = {}
-  let users = await this.getDistinctSchemaAtributesByProperty(Schema, 'user')
-  result.totalUsers = users.length
-  result.onlineUsers = await Schema.countDocuments({
-    is_online: true
-  })
+  let users = await this.getDistinctSchemaAtributesByProperty(Schema, 'name') 
 
-  let versoes = await this.getDistinctSchemaAtributesByProperty(Schema, 'portugol_version')
-  result.versionData = []
-  for (let i = 0; i < versoes.length; i++) {
-    let versionUsers = await Schema.countDocuments({
-      portugol_version: versoes[i]
-    })
+  return users
+}
 
-    result.versionData.push({
-      version: versoes[i],
-      users: versionUsers
-    })
-  }
-
-  let os = await this.getDistinctSchemaAtributesByProperty(Schema, 'operational_system')
-  result.osData = []
-  for (let i = 0; i < os.length; i++) {
-    let osUsers = await Schema.countDocuments({
-      operational_system: os[i]
-    })
-
-    result.osData.push({
-      os: os[i],
-      users: osUsers
-    })
-  }
+exports.getBusSchemaPaginated = async (Schema, req) => {
+  const result = await Schema.find()
   return result
 }
 
