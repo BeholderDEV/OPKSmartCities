@@ -13,7 +13,7 @@ const EventSchema = {
 
 const TrackSchema = {
   title: String,
-  waypoints: WaypointSchema,
+  waypoints: [WaypointSchema],
   events: EventSchema
 }
 

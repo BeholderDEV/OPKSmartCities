@@ -21,17 +21,13 @@ exports.getDistinctSchemaAtributesByProperty = async (Schema, propertyName) => {
   return result
 }
 
-exports.getUserStatistics = async (Schema) => {
+exports.getStatistics = async (Schema) => {
   let result = {}
-  let users = await this.getDistinctSchemaAtributesByProperty(Schema, 'name') 
-
+  let users = await this.getDistinctSchemaAtributesByProperty(Schema, 'name')
   return users
 }
 
-exports.getBusSchemaPaginated = async (Schema, req) => {
-  const result = await Schema.find()  
-  return result
-}
+
 
 exports.getEstimatedSchemaDocuments = async (Schema) => {
   const result = await Schema.estimatedDocumentCount();
