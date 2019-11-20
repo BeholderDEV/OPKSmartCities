@@ -29,7 +29,7 @@ exports.getUserStatistics = async (Schema) => {
 }
 
 exports.getBusSchemaPaginated = async (Schema, req) => {
-  const result = await Schema.find()
+  const result = await Schema.find()  
   return result
 }
 

@@ -1,5 +1,11 @@
 const mongoose = require('../../config/db')
 
+const WaypointSchema = {
+  latitude: Number,
+  longitude: Number,
+  createdAt: Date
+}
+
 const EventSchema = {
   category: String,
   createdAt: Date
@@ -7,7 +13,7 @@ const EventSchema = {
 
 const TrackSchema = {
   title: String,
-  waypoints: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Waypoint' }],
+  waypoints: WaypointSchema,
   events: EventSchema
 }
 
@@ -22,8 +28,8 @@ const BusSchema = {
   seats: Number,
   totalCapacity: Number,
   passengersNum: Number,
-  position: {type: mongoose.Schema.Types.ObjectId, ref: 'Waypoint'}
-  //schedule: ScheduleSchema
+  position: {type: mongoose.Schema.Types.ObjectId, ref: 'Waypoint'},
+  schedule: ScheduleSchema
 }
 
 const Bus = mongoose.model('bus', BusSchema)

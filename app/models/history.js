@@ -1,10 +1,17 @@
 const mongoose = require('../../config/db')
 
+
+const WaypointSchema = {
+  latitude: Number,
+  longitude: Number,
+  createdAt: Date
+}
+
 const HistorySchema = {
   _id: mongoose.Schema.Types.ObjectId,
   track: String,
   bus: mongoose.Schema.Types.ObjectId,
-  position: { type: mongoose.Schema.Types.ObjectId, ref: 'Waypoint' },
+  position: WaypointSchema,
   passegerCount: Number,
   createdAt: Date
 }

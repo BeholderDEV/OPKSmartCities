@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const opn = require('opn')
 
 const db = require('./config/db')
-const Waypoint = require('./app/models/waypoint')
 const User = require('./app/models/user')
 const Bus = require('./app/models/bus')
 const History = require('./app/models/history')
@@ -21,7 +20,7 @@ app.use(express.static('public'))
 
 app.use('/', index)
 app.use('/api/users', userRouter)
-app.use('/api/bus', busRouter)
+app.use('/api/buses', busRouter)
 
 app.listen(port, () => {
   console.log('We are live on ' + port)

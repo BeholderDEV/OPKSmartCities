@@ -1,11 +1,17 @@
 const mongoose = require('../../config/db')
 
+const WaypointSchema = {
+  latitude: Number,
+  longitude: Number,
+  createdAt: Date
+}
+
 const UserSchema = {
   _id: mongoose.Schema.Types.ObjectId,
   name: String,
   token: mongoose.Schema.Types.ObjectId,
   type: Number,
-  position: { type: mongoose.Schema.Types.ObjectId, ref: 'Waypoint' }
+  position: WaypointSchema
 }
 
 const User = mongoose.model('user', UserSchema)
