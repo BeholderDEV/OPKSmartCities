@@ -4,10 +4,16 @@ const dbController = require('../controllers/dbController')
 const Bus = require('../models/bus')
 const requestIp = require('request-ip')
 
+
 const router = express.Router()
 
 router.get('/', async (req, res) => {
   const result = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus, req])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
+router.get('/fbus', async (req, res) => {
+  const result = await asyncHandler.handleAsyncMethod(dbController.getBusSchemaWithFuzzy, [Bus, req])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 

@@ -1,5 +1,13 @@
+const fuzzy = require('../utils/fuzzyHandler')
+
 exports.getSchema = async (Schema) => {
   const result = await Schema.find().lean()
+  return result
+}
+
+exports.getBusSchemaWithFuzzy = async (Schema, Fuzzy) => {
+  const result = await Schema.find().lean()
+  fuzzy.doTheFuzzy(result)
   return result
 }
 
