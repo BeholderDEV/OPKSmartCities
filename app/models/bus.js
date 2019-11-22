@@ -33,5 +33,6 @@ const BusSchema = {
 }
 
 const Bus = mongoose.model('bus', BusSchema)
+const Track = mongoose.model('track', TrackSchema)
 
-module.exports = Bus
+module.exports = {Bus: Bus, Track:Track}

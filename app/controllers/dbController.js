@@ -7,7 +7,7 @@ exports.getSchema = async (Schema) => {
 
 exports.getBusSchemaWithFuzzy = async (Schema, Fuzzy) => {
   const result = await Schema.find().lean()
-  fuzzy.doTheFuzzy(result)
+  //fuzzy.doTheFuzzy(result)
   return result
 }
 
@@ -35,7 +35,11 @@ exports.getStatistics = async (Schema) => {
   return users
 }
 
-
+exports.getNumberOfDocuments = async (Schema) => {
+  var count = await Schema.count();
+  var result= {count}
+  return result;
+}
 
 exports.getEstimatedSchemaDocuments = async (Schema) => {
   const result = await Schema.estimatedDocumentCount();

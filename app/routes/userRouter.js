@@ -11,6 +11,11 @@ router.get('/', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
+router.get('/count', async (req, res) => {
+  const result = await asyncHandler.handleAsyncMethod(dbController.getNumberOfDocuments, [User])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
 router.get('/distinct/:atributo', async (req, res) => {
   const result = await asyncHandler.handleAsyncMethod(dbController.getDistinctSchemaAtributesByProperty, [User, req.params.atributo])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
