@@ -1,11 +1,11 @@
-const fuzzy = require('es6-fuzz/lib/logic')
-const triangle = require('es6-fuzz/lib/curve/')
-const grade = require('es6-fuzz/lib/curve/grade')
-const trapezoid = require('es6-fuzz/lib/curve/trapezoid')
-const rgrade = require('es6-fuzz/lib/curve/reverse-grade')
-const fuzzyl = require('./fuzzy')
+//const fuzzy = require('es6-fuzz/lib/logic')
+//const triangle = require('es6-fuzz/lib/curve/')
+//const grade = require('es6-fuzz/lib/curve/grade')
+//const trapezoid = require('es6-fuzz/lib/curve/trapezoid')
+//const rgrade = require('es6-fuzz/lib/curve/reverse-grade')
+//const fuzzyl = require('./fuzzy')
 
-exports.doTheFuzzy = (frota) => {
+/*exports.doTheFuzzy = (frota) => {
     let buslogic = new fuzzy()
     let crwdlogic = new fuzzy()
     
@@ -43,7 +43,7 @@ exports.doTheFuzzy = (frota) => {
                 .or('lotado', new trapezoid(7, 8, 9, 10))
 
     
-}
+}*/
 
 exports.doTheFuzzy2 = (frota) => {
     const obj = {
