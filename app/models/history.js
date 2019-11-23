@@ -8,12 +8,10 @@ const WaypointSchema = {
 }
 
 const HistorySchema = {
-  _id: mongoose.Schema.Types.ObjectId,
   track: String,
   bus: mongoose.Schema.Types.ObjectId,
   position: WaypointSchema,
-  passegerCount: Number,
-  createdAt: Date
+  passegerCount: Number
 }
 
 const History = mongoose.model('history', HistorySchema)

@@ -1,5 +1,3 @@
-const fuzzy = require('../utils/fuzzyHandler')
-
 exports.getSchema = async (Schema) => {
   const result = await Schema.find().lean()
   return result
@@ -83,8 +81,49 @@ exports.createSchema = async (Schema, info) => {
   return createdModel
 }
 
+exports.createHistorySchema = async (HistSchema, BusSchema, chassi) => {
+  console.log("criando historia")
+  let query = {}
+  query["chassi"] = chassi
+  const result = await BusSchema.find(query).lean()
+  
+  //HistSchema.track = result[0].schedule.track
+  var histmodel = new HistSchema()
+  histmodel.bus = result[0]
+  histmodel.position = result[0].position
+  histmodel.passengersNum = result[0].passengersNum
+
+  const createdModel = await histmodel.save()
+  return createdModel
+}
+
+exports.updateWaypoint = async (Schema, chassi, modifications) => {
+  const updatedModel = await Schema.updateOne({chassi: chassi}, { $set: { position: modifications} })
+  return updatedModel
+}
+
+exports.addPassenger = async (Schema, chassi, number) => {
+  if(number == undefined)
+  {
+    const updatedModel = await Schema.updateOne({chassi: chassi}, {$inc:{"passengersNum": 1}})
+    return updatedModel
+  }
+  const updatedModel = await Schema.updateOne({chassi: chassi}, {$inc:{"passengersNum": number}})
+  return updatedModel
+}
+
+exports.removePassenger = async (Schema, chassi, number) => {
+  if(number == undefined)
+  {
+    const updatedModel = await Schema.updateOne({chassi: chassi}, {$inc:{"passengersNum": -1}})
+    return updatedModel  
+  }
+  const updatedModel = await Schema.updateOne({chassi: chassi}, {$inc:{"passengersNum": -number}})
+  return updatedModel
+}
+
 exports.updateSchema = async (Schema, id, modifications) => {
-  const updatedModel = await Schema.update({_id: id}, modifications)
+  const updatedModel = await Schema.updateOne({_id: id}, modifications)
   return updatedModel
 }
 

@@ -1,7 +1,7 @@
 const express = require('express')
 const asyncHandler = require('../utils/asyncHandler')
 const dbController = require('../controllers/dbController')
-const History = require('../models/History')
+const History = require('../models/history')
 const requestIp = require('request-ip')
 
 const router = express.Router()

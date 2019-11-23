@@ -10,7 +10,7 @@ const History = require('./app/models/history')
 const index = require('./app/routes/index')
 const userRouter = require('./app/routes/userRouter')
 const busRouter = require('./app/routes/busRouter')
-const historyRouter = require('./app/routes/busRouter')
+const historyRouter = require('./app/routes/historyRouter')
 const trackRouter = require('./app/routes/trackRouter')
 
 const app = express()

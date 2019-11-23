@@ -27,8 +27,8 @@ const BusSchema = {
   chassi: String,
   seats: Number,
   totalCapacity: Number,
-  passengersNum: Number,
-  position: {type: mongoose.Schema.Types.ObjectId, ref: 'Waypoint'},
+  passengersNum:  Number,
+  position: WaypointSchema,
   schedule: ScheduleSchema
 }
 

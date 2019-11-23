@@ -2,6 +2,7 @@ const express = require('express')
 const asyncHandler = require('../utils/asyncHandler')
 const dbController = require('../controllers/dbController')
 const Bus = require('../models/bus')
+const History = require('../models/history')
 const requestIp = require('request-ip')
 
 
@@ -47,8 +48,6 @@ router.get('/:chassi', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
-
-
 router.post('/', async (req, res) => {
   req.body.extIp = requestIp.getClientIp(req)
   const result = await asyncHandler.handleAsyncMethod(dbController.createSchema, [Bus.Bus, req.body])
@@ -61,10 +60,41 @@ router.put('/:id', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
- router.put('/compilation/:id', async (req, res) => {
+router.put('/compilation/:id', async (req, res) => {
    req.body.extIp = requestIp.getClientIp(req)
    const result = await asyncHandler.handleAsyncMethod(dbController.insertCompilationSchema, [Bus.Bus, req.params.id, req.body])
    result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
  })
+
+ router.put('/updateWaypoint/:chassi', async (req, res) => {
+  req.body.extIp = requestIp.getClientIp(req)  
+  const result = await asyncHandler.handleAsyncMethod(dbController.updateWaypoint, [Bus.Bus, req.params.chassi, req.body])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+  await asyncHandler.handleAsyncMethod(dbController.createHistorySchema, [History, Bus.Bus, req.params.chassi])
+})
+
+router.put('/addPassenger/:chassi', async (req, res) => {
+  req.body.extIp = requestIp.getClientIp(req)
+  const result = await asyncHandler.handleAsyncMethod(dbController.addPassenger, [Bus.Bus, req.params.chassi])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
+router.put('/removePassenger/:chassi', async (req, res) => {
+  req.body.extIp = requestIp.getClientIp(req)
+  const result = await asyncHandler.handleAsyncMethod(dbController.removePassenger, [Bus.Bus, req.params.chassi])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
+router.put('/addPassenger/:chassi/:number', async (req, res) => {
+  req.body.extIp = requestIp.getClientIp(req)
+  const result = await asyncHandler.handleAsyncMethod(dbController.addPassenger, [Bus.Bus, req.params.chassi, req.params.number])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
+router.put('/removePassenger/:chassi/:number', async (req, res) => {
+  req.body.extIp = requestIp.getClientIp(req)
+  const result = await asyncHandler.handleAsyncMethod(dbController.removePassenger, [Bus.Bus, req.params.chassi, req.params.number])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
 
 module.exports = router
