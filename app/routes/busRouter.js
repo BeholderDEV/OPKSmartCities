@@ -97,4 +97,9 @@ router.put('/removePassenger/:chassi/:number', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
+router.delete('/:id', async (req, res) => {
+  const result = await asyncHandler.handleAsyncMethod(dbController.deleteSchema, [Bus.Bus, req.params.id])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+ })
+
 module.exports = router
