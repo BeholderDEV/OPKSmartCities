@@ -1,5 +1,6 @@
 const express = require('express')
 const asyncHandler = require('../utils/asyncHandler')
+const populateHandles = require('../utils/populateHandler')
 const dbController = require('../controllers/dbController')
 const Bus = require('../models/bus')
 const History = require('../models/history')
@@ -9,7 +10,10 @@ const requestIp = require('request-ip')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaPopulated, [Bus.Bus, "tracks"])
+  const resultbus = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Bus])
+  const resulttracks = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Track])
+
+  const result = populateHandles.populateJSON(resultbus, resulttracks)
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
