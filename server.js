@@ -26,7 +26,7 @@ app.use('/api/users', userRouter)
 app.use('/api/buses', busRouter)
 app.use('/api/history', historyRouter)
 app.use('/api/tracks', trackRouter)
-app.use('/api/schedules', scheduleRouter)
+//app.use('/api/schedules', scheduleRouter)
 
 app.listen(port, () => {
   console.log('We are live on ' + port)

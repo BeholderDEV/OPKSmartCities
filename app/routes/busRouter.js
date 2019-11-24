@@ -9,7 +9,7 @@ const requestIp = require('request-ip')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Bus, req])
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaPopulated, [Bus.Bus, "tracks"])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
