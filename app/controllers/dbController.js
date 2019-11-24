@@ -3,6 +3,11 @@ exports.getSchema = async (Schema) => {
   return result
 }
 
+exports.getSchemaPopulated = async (Schema, refs) => {
+  const result = await Schema.find().populate(refs).lean()
+  return result
+}
+
 exports.getBusSchemaWithFuzzy = async (Schema, Fuzzy) => {
   const result = await Schema.find().lean()
   //fuzzy.doTheFuzzy(result)

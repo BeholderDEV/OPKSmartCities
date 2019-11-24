@@ -12,6 +12,7 @@ const userRouter = require('./app/routes/userRouter')
 const busRouter = require('./app/routes/busRouter')
 const historyRouter = require('./app/routes/historyRouter')
 const trackRouter = require('./app/routes/trackRouter')
+const scheduleRouter = require('./app/routes/scheduleRouter')
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -25,6 +26,7 @@ app.use('/api/users', userRouter)
 app.use('/api/buses', busRouter)
 app.use('/api/history', historyRouter)
 app.use('/api/tracks', trackRouter)
+app.use('/api/schedules', scheduleRouter)
 
 app.listen(port, () => {
   console.log('We are live on ' + port)

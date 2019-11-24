@@ -31,8 +31,6 @@ router.get('/:History', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
-
-
 router.post('/', async (req, res) => {
   req.body.extIp = requestIp.getClientIp(req)
   const result = await asyncHandler.handleAsyncMethod(dbController.createSchema, [History, req.body])

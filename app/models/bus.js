@@ -12,14 +12,15 @@ const EventSchema = {
 }
 
 const TrackSchema = {
-  title: String,
+  name: String,
+  number: Number,
   waypoints: [WaypointSchema],
   events: EventSchema
 }
 
 const ScheduleSchema = {
-  time: Date,
-  track: TrackSchema
+  time: String,
+  track: { type: mongoose.Schema.Types.ObjectId, ref: 'track' }
 }
 
 const BusSchema = {
@@ -29,10 +30,11 @@ const BusSchema = {
   totalCapacity: Number,
   passengersNum:  Number,
   position: WaypointSchema,
-  schedule: ScheduleSchema
+  schedule: { type: mongoose.Schema.Types.ObjectId, ref: 'schedule' }
 }
 
 const Bus = mongoose.model('bus', BusSchema)
 const Track = mongoose.model('track', TrackSchema)
+const Schedule = mongoose.model('schedule', ScheduleSchema)
 
-module.exports = {Bus: Bus, Track:Track}
+module.exports = {Bus: Bus, Track:Track, Schedule:Schedule}
