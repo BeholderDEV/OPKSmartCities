@@ -16,6 +16,16 @@ router.get('/', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
+router.put('/resetAll', async (req, res) => {
+  req.body.extIp = requestIp.getClientIp(req)
+  
+  const result = await asyncHandler.handleAsyncMethod(async () => {
+      return await Bus.Bus.updateMany({}, {$set:{passengersNum: 0}, $unset:{position:true, schedule: true}})
+  },[])
+
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
 router.get('/count', async (req, res) => {
   const result = await asyncHandler.handleAsyncMethod(dbController.getNumberOfDocuments, [Bus.Bus])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
