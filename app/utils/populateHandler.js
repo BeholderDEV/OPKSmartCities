@@ -15,6 +15,17 @@ exports.populateJSON = (buses, tracks) =>
         }
         
     }
-
     return buses
+}
+
+exports.populateHistTracks = (histories, tracks) =>
+{
+    for(var i in tracks)
+    {
+        var track = tracks[i]
+        var tHists = histories.filter(h => h.schedule.track == track.name)
+        track.history = tHists
+    }
+
+    return tracks
 }
