@@ -37,7 +37,9 @@ router.get('/statistics', async (req, res) => {
 })
 
 router.get('/:prop/:value', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [Bus.Bus, req.params.prop, req.params.value])
+  const params = req.params.prop.split('&')
+  const values = req.params.value.split('&')
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByMultipleProperty, [Bus.Bus, params, values])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
