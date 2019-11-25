@@ -7,7 +7,7 @@ const requestIp = require('request-ip')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchema, [History, req])
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaPopulated, [History, "bus"])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
@@ -21,13 +21,21 @@ router.get('/statistics', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
-router.get('/:prop/:value', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [History, req.params.prop, req.params.value])
+router.get('/:id', async (req, res) => {
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [History, '_id', req.params.id])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
-router.get('/:History', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [History, 'History', req.params.History])
+router.get('/:prop/:value', async (req, res) => {
+  const params = req.params.prop.split('&')
+  const values = req.params.value.split('&')
+
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByMultipleProperty, [History, params, values])
+  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+})
+
+router.get('/byTrack', async (req, res) => {
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [History, '_id', req.params.id])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 

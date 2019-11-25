@@ -1,3 +1,5 @@
+const populateHandles = require('../utils/populateHandler')
+
 exports.getSchema = async (Schema) => {
   const result = await Schema.find().lean()
   return result
@@ -23,6 +25,15 @@ exports.getSchemaById = async (Schema, id) => {
 exports.getSchemaByProperty = async (Schema, propertyName, propertyValue) => {
   let query = {}
   query[propertyName] = propertyValue
+  const result = await Schema.find(query).lean()
+  return result
+}
+exports.getSchemaByMultipleProperty = async (Schema, propertyNames, propertyValues) => {
+  let query = {}
+  for( i in propertyNames)
+  {
+    query[propertyNames[i]] = propertyValues[i]
+  }  
   const result = await Schema.find(query).lean()
   return result
 }
@@ -86,14 +97,15 @@ exports.createSchema = async (Schema, info) => {
   return createdModel
 }
 
-exports.createHistorySchema = async (HistSchema, BusSchema, chassi) => {
-  console.log("criando historia")
+exports.createHistorySchema = async (HistSchema, BusSchema, TrackSchema, chassi) => {
   let query = {}
   query["chassi"] = chassi
-  const result = await BusSchema.find(query).lean()
-  
-  //HistSchema.track = result[0].schedule.track
+  const resultBus = await BusSchema.find(query).lean()
+  const resultTrack = await TrackSchema.find().lean()
+  const result = populateHandles.populateJSON(resultBus, resultTrack)
   var histmodel = new HistSchema()
+
+  histmodel.schedule = result[0].schedule
   histmodel.bus = result[0]
   histmodel.position = result[0].position
   histmodel.passengersNum = result[0].passengersNum

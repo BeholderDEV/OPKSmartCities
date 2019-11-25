@@ -8,8 +8,8 @@ const WaypointSchema = {
 }
 
 const HistorySchema = {
-  track: String,
-  bus: mongoose.Schema.Types.ObjectId,
+  schedule: Object,
+  bus: { type: mongoose.Schema.Types.ObjectId, ref: 'bus'},
   position: WaypointSchema,
   passegerCount: Number
 }

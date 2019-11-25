@@ -9,6 +9,8 @@ exports.populateJSON = (buses, tracks) =>
             var busSchedule = bus.schedule.schedule_id
             var schedules = tracks.filter(t => t.schedules.some(s => (s._id+"") == (busSchedule+"")))
             var schedule = schedules[0].schedules.filter(s => (s._id+"") == (busSchedule+""))
+            bus.schedule.track = schedules[0].name
+            bus.schedule.trackNumber = schedules[0].number
             bus.schedule.scheduleData = schedule
         }
         

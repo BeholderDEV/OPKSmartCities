@@ -12,7 +12,6 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   const resultbus = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Bus])
   const resulttracks = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Track])
-
   const result = populateHandles.populateJSON(resultbus, resulttracks)
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
@@ -74,7 +73,7 @@ router.put('/compilation/:id', async (req, res) => {
   req.body.extIp = requestIp.getClientIp(req)  
   const result = await asyncHandler.handleAsyncMethod(dbController.updateWaypoint, [Bus.Bus, req.params.chassi, req.body])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
-  await asyncHandler.handleAsyncMethod(dbController.createHistorySchema, [History, Bus.Bus, req.params.chassi])
+  await asyncHandler.handleAsyncMethod(dbController.createHistorySchema, [History, Bus.Bus, Bus.Track, req.params.chassi])
 })
 
 router.put('/addPassenger/:chassi', async (req, res) => {
