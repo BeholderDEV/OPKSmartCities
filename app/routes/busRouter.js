@@ -9,10 +9,18 @@ const requestIp = require('request-ip')
 
 const router = express.Router()
 
+async function includeSchedule(resultbus, req){
+  if (req.query.includeSchedule == 'true'){
+    const resulttracks = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Track])
+    return populateHandles.populateJSON(resultbus, resulttracks)
+  }
+  
+  return resultbus
+}
+
 router.get('/', async (req, res) => {
   const resultbus = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Bus])
-  const resulttracks = await asyncHandler.handleAsyncMethod(dbController.getSchema, [Bus.Track])
-  const result = populateHandles.populateJSON(resultbus, resulttracks)
+  const result = await includeSchedule(resultbus, req)
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
@@ -49,19 +57,22 @@ router.get('/statistics', async (req, res) => {
 router.get('/:prop/:value', async (req, res) => {
   const params = req.params.prop.split('&')
   const values = req.params.value.split('&')
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByMultipleProperty, [Bus.Bus, params, values])
+  const resultbus = await asyncHandler.handleAsyncMethod(dbController.getSchemaByMultipleProperty, [Bus.Bus, params, values])
+  const result = await includeSchedule(resultbus, req)
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
 router.get('/:id', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [Bus.Bus, '_id', req.params.id])
+  const resultbus = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [Bus.Bus, '_id', req.params.id])
+  const result = await includeSchedule(resultbus, req)
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
-router.get('/:chassi', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [Bus.Bus, 'chassi', req.params.chassi])
-  result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
-})
+// Não funciona, porque ele sempre interpreta o valor após a "/" como sendo o id do ônibus
+// router.get('/:chassi', async (req, res) => {
+//   const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [Bus.Bus, 'chassi', req.params.chassi])
+//   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
+// })
 
 router.post('/', async (req, res) => {
   req.body.extIp = requestIp.getClientIp(req)
