@@ -1,7 +1,7 @@
 {
   "name": "opksmartcities-server",
   "version": "1.0.0",
-  "description": "A new way to spy your UI, withut a lot of requests",
+  "description": "A new way to control buses",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
