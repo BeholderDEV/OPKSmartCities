@@ -11,7 +11,7 @@ const HistorySchema = {
   schedule: Object,
   bus: { type: mongoose.Schema.Types.ObjectId, ref: 'bus'},
   position: WaypointSchema,
-  passegerCount: Number
+  passengersNum: Number
 }
 
 const History = mongoose.model('history', HistorySchema)

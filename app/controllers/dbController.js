@@ -108,7 +108,7 @@ exports.createHistorySchema = async (HistSchema, BusSchema, TrackSchema, chassi)
   histmodel.schedule = result[0].schedule
   histmodel.bus = result[0]
   histmodel.position = result[0].position
-  histmodel.passegerCount = result[0].passengersNum
+  histmodel.passengersNum = result[0].passengersNum
 
   const createdModel = await histmodel.save()
   return createdModel
