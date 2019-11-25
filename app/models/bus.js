@@ -23,7 +23,7 @@ const ScheduleSchema = {
 
 const TrackSchema = {
   name: String,
-  number: Number,
+  number: String,
   schedules: [ScheduleSchema],
   events: EventSchema
 }

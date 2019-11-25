@@ -33,8 +33,8 @@ router.get('/:prop/:value', async (req, res) => {
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
-router.get('/:user', async (req, res) => {
-  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [User, 'user', req.params.user])
+router.get('/:id', async (req, res) => {
+  const result = await asyncHandler.handleAsyncMethod(dbController.getSchemaByProperty, [User, '_id', req.params.id])
   result !== 'error' ? res.send(result) : res.send({'error': 'An error has occurred'})
 })
 
